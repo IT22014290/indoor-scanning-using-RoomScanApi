@@ -82,7 +82,9 @@ struct RealityKitPreviewView: UIViewRepresentable {
         let arView = ARView(frame: .zero,
                             cameraMode: .nonAR,
                             automaticallyConfigureSession: false)
-        arView.environment.background = .color(UIColor(red: 0.07, green: 0.07, blue: 0.10, alpha: 1))
+        // Brighter neutral background so RoomPlan USDZ doesn't blend in.
+        arView.environment.background = .color(UIColor(red: 0.92, green: 0.93, blue: 0.95, alpha: 1))
+        arView.environment.lighting.intensityExponent = 0.75
         arView.renderOptions = [.disableGroundingShadows, .disableMotionBlur, .disableFaceMesh]
         context.coordinator.setup(arView: arView)
         return arView
@@ -304,16 +306,17 @@ struct RealityKitPreviewView: UIViewRepresentable {
                 e.look(at: .zero, from: pos, relativeTo: nil)
                 return e
             }
-            parent.addChild(make(.white,                          3500, from: [ 5, 12,  5]))
-            parent.addChild(make(UIColor(white: 0.75, alpha: 1), 1500, from: [-4,  8, -4]))
-            parent.addChild(make(UIColor(white: 0.50, alpha: 1),  600, from: [ 0,  2, -8]))
+            // Studio-style lighting to increase contrast on light meshes.
+            parent.addChild(make(.white,                          5200, from: [ 6, 14,  6]))
+            parent.addChild(make(UIColor(white: 0.80, alpha: 1),  2200, from: [-6, 10, -5]))
+            parent.addChild(make(UIColor(white: 0.55, alpha: 1),   900, from: [ 0,  3, -10]))
         }
 
         private func addGroundPlane(y: Float, size: Float, to parent: Entity) {
             let mesh = MeshResource.generatePlane(width: size, depth: size)
             var mat  = PhysicallyBasedMaterial()
-            mat.baseColor = .init(tint: UIColor(white: 0.06, alpha: 1))
-            mat.roughness = 0.95
+            mat.baseColor = .init(tint: UIColor(white: 0.18, alpha: 1))
+            mat.roughness = 0.90
             mat.metallic  = 0.0
             let plane = ModelEntity(mesh: mesh, materials: [mat])
             plane.position = [0, y, 0]

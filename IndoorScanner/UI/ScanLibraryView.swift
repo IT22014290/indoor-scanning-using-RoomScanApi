@@ -201,7 +201,7 @@ struct ScanDetailView: View {
             }
             .sheet(isPresented: $showModelPreview) {
                 if let url = library.usdzURL(for: record) {
-                    QuickLookPreview(url: url)
+                    ModelPreviewSheet(url: url)
                 }
             }
         }
@@ -225,6 +225,25 @@ struct ScanDetailView: View {
         if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
            let root = scene.keyWindow?.rootViewController {
             root.present(picker, animated: true)
+        }
+    }
+}
+
+struct ModelPreviewSheet: View {
+    let url: URL
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            QuickLookPreview(url: url)
+                .ignoresSafeArea()
+                .navigationTitle("3D Preview")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Back") { dismiss() }
+                    }
+                }
         }
     }
 }

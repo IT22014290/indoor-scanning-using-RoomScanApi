@@ -50,6 +50,7 @@ struct ExportView: View {
                     fileRow(name: "floor.obj",       desc: "Walkable floor surface")
                     fileRow(name: "obstacles.obj",   desc: "Walls + furniture boxes")
                     fileRow(name: "combined.obj",    desc: "Floor + obstacles merged")
+                    fileRow(name: "materials.mtl",   desc: "OBJ colors/materials")
                     fileRow(name: "metadata.json",   desc: "Location + coordinate data")
                     fileRow(name: "waypoints.json",  desc: "Navigation waypoint graph")
                     fileRow(name: "preview.usdz",    desc: "Exact RoomPlan USDZ output")

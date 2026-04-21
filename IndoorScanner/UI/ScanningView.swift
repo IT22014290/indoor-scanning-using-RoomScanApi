@@ -6,6 +6,7 @@ import ARKit
 struct ScanningView: View {
     @EnvironmentObject var appState: AppState
     @StateObject private var scanSession = RoomScanSession()
+    @StateObject private var meshSupplementor = ARMeshSupplementor()
     @State private var showAddRoomConfirm = false
     @State private var showQualityAlert = false
     @State private var roomLabel = ""
@@ -21,7 +22,7 @@ struct ScanningView: View {
 
     var body: some View {
         ZStack {
-            RoomPlanCaptureViewRepresentable(scanSession: scanSession)
+            RoomPlanCaptureViewRepresentable(scanSession: scanSession, meshSupplementor: meshSupplementor)
                 .ignoresSafeArea()
 
             VStack {
@@ -305,6 +306,24 @@ struct ScanningView: View {
         exportDebug("✅ Step 2: Merging rooms")
         let mergedGeo = stitcher.buildMergedGeometry()
 
+        // ARKit mesh supplement (LiDAR) for irregular obstacles
+        exportDebug("✅ Step 2b: Extracting ARKit mesh obstacles")
+        let raw = meshSupplementor.extractObstacleFaces(excludingBounds: mergedGeo.bounds)
+        let supplementalMesh: MeshPostProcessor.ProcessedMesh? = {
+            guard !raw.isEmpty else { return nil }
+            // Merge all raw chunks into one mesh
+            var combinedVerts = [simd_float3]()
+            var combinedIdx = [UInt32]()
+            var base: UInt32 = 0
+            for chunk in raw {
+                combinedVerts.append(contentsOf: chunk.vertices)
+                combinedIdx.append(contentsOf: chunk.indices.map { $0 + base })
+                base += UInt32(chunk.vertices.count)
+            }
+            let m = MeshPostProcessor.ProcessedMesh(vertices: combinedVerts, indices: combinedIdx)
+            return MeshPostProcessor.decimate(m, targetTriangles: 150_000, mergeTolerance: 0.01)
+        }()
+
         exportDebug("✅ Step 3: Generating waypoints")
         let waypointGraph = WaypointGenerator.generate(
             floorBounds: mergedGeo.bounds,
@@ -346,7 +365,8 @@ struct ScanningView: View {
             mergedGeometry: mergedGeo,
             waypointGraph: waypointGraph,
             thumbnailImage: thumbnail,
-            previewUsdzURL: appState.previewUsdzURL
+            previewUsdzURL: appState.previewUsdzURL,
+            supplementalObstacleMesh: supplementalMesh
         )
 
         do {
@@ -405,10 +425,13 @@ struct ScanningView: View {
 
 struct RoomPlanCaptureViewRepresentable: UIViewRepresentable {
     @ObservedObject var scanSession: RoomScanSession
+    let meshSupplementor: ARMeshSupplementor
 
     func makeUIView(context: Context) -> RoomCaptureView {
         let captureView = RoomCaptureView(frame: .zero)
         scanSession.attach(to: captureView)
+        // Attach LiDAR mesh capture to RoomPlan's underlying ARSession when available.
+        meshSupplementor.attach(to: captureView.captureSession.arSession)
         return captureView
     }
 

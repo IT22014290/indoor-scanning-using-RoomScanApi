@@ -15,6 +15,7 @@ struct OBJExporter {
         var waypointGraph: WaypointGraph
         var thumbnailImage: UIImage?
         var previewUsdzURL: URL?
+        var supplementalObstacleMesh: MeshPostProcessor.ProcessedMesh?
     }
 
     struct ExportResult {
@@ -37,6 +38,31 @@ struct OBJExporter {
             .appendingPathComponent("IndoorScanExport_\(UUID().uuidString)", isDirectory: true)
         try FileManager.default.createDirectory(at: tmp, withIntermediateDirectories: true)
 
+        // Write MTL so OBJ exports keep distinct colors in viewers.
+        let mtlURL = tmp.appendingPathComponent("materials.mtl")
+        let mtlText = [
+            "# IndoorScanner materials",
+            "newmtl floor",
+            "Kd 0.55 0.85 0.55",
+            "Ka 0.10 0.10 0.10",
+            "Ks 0.05 0.05 0.05",
+            "Ns 12.0",
+            "",
+            "newmtl obstacle",
+            "Kd 0.90 0.55 0.55",
+            "Ka 0.10 0.10 0.10",
+            "Ks 0.05 0.05 0.05",
+            "Ns 12.0",
+            "",
+            "newmtl combined",
+            "Kd 0.80 0.80 0.85",
+            "Ka 0.10 0.10 0.10",
+            "Ks 0.05 0.05 0.05",
+            "Ns 12.0",
+            ""
+        ].joined(separator: "\n")
+        try mtlText.write(to: mtlURL, atomically: true, encoding: .utf8)
+
         let geo = input.mergedGeometry
         let dedupWalls = deduplicateWalls(geo.walls)
 
@@ -50,7 +76,10 @@ struct OBJExporter {
         // 2. Obstacle mesh
         let obstacleMesh = MeshPostProcessor.buildObstacleMesh(
             walls: dedupWalls, objects: geo.objects)
-        let obstacleMeshFinal = MeshPostProcessor.decimate(obstacleMesh, targetTriangles: 400_000)
+        let obstacleMerged = MeshPostProcessor.mergeMeshes(
+            [obstacleMesh] + (input.supplementalObstacleMesh.map { [$0] } ?? [])
+        )
+        let obstacleMeshFinal = MeshPostProcessor.decimate(obstacleMerged, targetTriangles: 400_000)
         let obstaclesObjURL = tmp.appendingPathComponent("obstacles.obj")
         try writeOBJ(obstacleMeshFinal, to: obstaclesObjURL,
                      mtl: "obstacle", comment: "Obstacles — NavMesh carving")
@@ -59,7 +88,7 @@ struct OBJExporter {
         let combined = MeshPostProcessor.mergeMeshes([floorMeshFinal, obstacleMeshFinal])
         let combinedFinal = MeshPostProcessor.decimate(combined, targetTriangles: 500_000)
         try writeOBJ(combinedFinal, to: tmp.appendingPathComponent("combined.obj"),
-                     mtl: nil, comment: "Combined floor + obstacles")
+                     mtl: "combined", comment: "Combined floor + obstacles")
 
         // 4. Metadata JSON
         let meta = buildMetadata(input: input, bounds: geo.bounds, triCount: combinedFinal.triangleCount)
@@ -115,6 +144,7 @@ struct OBJExporter {
                                    mtl: String?,
                                    comment: String) throws {
         var lines = ["# \(comment)", "# IndoorScanner export", "# Coordinate: Y-up, 1 unit = 1 meter", ""]
+        lines.append("mtllib materials.mtl")
         if let mtl {
             lines.append("usemtl \(mtl)")
         }
