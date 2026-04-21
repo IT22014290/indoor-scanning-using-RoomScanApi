@@ -1,0 +1,523 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA11000000000000000001 /* IndoorScannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000001 /* IndoorScannerApp.swift */; };
+		AA11000000000000000002 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000002 /* AppState.swift */; };
+		AA11000000000000000003 /* ScanRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000003 /* ScanRoom.swift */; };
+		AA11000000000000000004 /* WaypointGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000004 /* WaypointGraph.swift */; };
+		AA11000000000000000005 /* RoomScanSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000005 /* RoomScanSession.swift */; };
+		AA11000000000000000006 /* ARMeshSupplementor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000006 /* ARMeshSupplementor.swift */; };
+		AA11000000000000000007 /* QROriginCalibrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000007 /* QROriginCalibrator.swift */; };
+		AA11000000000000000008 /* MultiRoomStitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000008 /* MultiRoomStitcher.swift */; };
+		AA11000000000000000009 /* StructuredModelRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000009 /* StructuredModelRenderer.swift */; };
+		AA1100000000000000000A /* MeshPostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000A /* MeshPostProcessor.swift */; };
+		AA1100000000000000000B /* WaypointGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000B /* WaypointGenerator.swift */; };
+		AA1100000000000000000C /* OBJExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000C /* OBJExporter.swift */; };
+		AA1100000000000000000D /* ExportValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000D /* ExportValidator.swift */; };
+		AA1100000000000000000E /* DiskStreamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000E /* DiskStreamManager.swift */; };
+		AA1100000000000000000F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1000000000000000000F /* ContentView.swift */; };
+		AA11000000000000000010 /* QRScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000010 /* QRScanView.swift */; };
+		AA11000000000000000011 /* ScanningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000011 /* ScanningView.swift */; };
+		AA11000000000000000012 /* ModelPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000012 /* ModelPreviewView.swift */; };
+		AA11000000000000000013 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000013 /* ExportView.swift */; };
+		AA11000000000000000014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000014 /* Assets.xcassets */; };
+		AA11000000000000000030 /* SavedScanRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000030 /* SavedScanRecord.swift */; };
+		AA11000000000000000031 /* ScanLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000031 /* ScanLibraryManager.swift */; };
+		AA11000000000000000032 /* ScanLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000032 /* ScanLibraryView.swift */; };
+		AA11000000000000000020 /* RoomPlan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000020 /* RoomPlan.framework */; };
+		AA11000000000000000021 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000021 /* ARKit.framework */; };
+		AA11000000000000000022 /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000022 /* RealityKit.framework */; };
+		AA11000000000000000023 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000023 /* SceneKit.framework */; };
+		AA11000000000000000024 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000024 /* Vision.framework */; };
+		AA11000000000000000025 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000025 /* Metal.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA10000000000000000001 /* IndoorScannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndoorScannerApp.swift; sourceTree = "<group>"; };
+		AA10000000000000000002 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		AA10000000000000000003 /* ScanRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanRoom.swift; sourceTree = "<group>"; };
+		AA10000000000000000004 /* WaypointGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointGraph.swift; sourceTree = "<group>"; };
+		AA10000000000000000005 /* RoomScanSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomScanSession.swift; sourceTree = "<group>"; };
+		AA10000000000000000006 /* ARMeshSupplementor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMeshSupplementor.swift; sourceTree = "<group>"; };
+		AA10000000000000000007 /* QROriginCalibrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QROriginCalibrator.swift; sourceTree = "<group>"; };
+		AA10000000000000000008 /* MultiRoomStitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiRoomStitcher.swift; sourceTree = "<group>"; };
+		AA10000000000000000009 /* StructuredModelRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuredModelRenderer.swift; sourceTree = "<group>"; };
+		AA1000000000000000000A /* MeshPostProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshPostProcessor.swift; sourceTree = "<group>"; };
+		AA1000000000000000000B /* WaypointGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaypointGenerator.swift; sourceTree = "<group>"; };
+		AA1000000000000000000C /* OBJExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OBJExporter.swift; sourceTree = "<group>"; };
+		AA1000000000000000000D /* ExportValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportValidator.swift; sourceTree = "<group>"; };
+		AA1000000000000000000E /* DiskStreamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStreamManager.swift; sourceTree = "<group>"; };
+		AA1000000000000000000F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AA10000000000000000010 /* QRScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanView.swift; sourceTree = "<group>"; };
+		AA10000000000000000011 /* ScanningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanningView.swift; sourceTree = "<group>"; };
+		AA10000000000000000012 /* ModelPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelPreviewView.swift; sourceTree = "<group>"; };
+		AA10000000000000000013 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		AA10000000000000000014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA10000000000000000015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA10000000000000000030 /* SavedScanRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedScanRecord.swift; sourceTree = "<group>"; };
+		AA10000000000000000031 /* ScanLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLibraryManager.swift; sourceTree = "<group>"; };
+		AA10000000000000000032 /* ScanLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLibraryView.swift; sourceTree = "<group>"; };
+		AA10000000000000000016 /* IndoorScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA10000000000000000020 /* RoomPlan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RoomPlan.framework; path = System/Library/Frameworks/RoomPlan.framework; sourceTree = SDKROOT; };
+		AA10000000000000000021 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		AA10000000000000000022 /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = System/Library/Frameworks/RealityKit.framework; sourceTree = SDKROOT; };
+		AA10000000000000000023 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		AA10000000000000000024 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
+		AA10000000000000000025 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA20000000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA11000000000000000020 /* RoomPlan.framework in Frameworks */,
+				AA11000000000000000021 /* ARKit.framework in Frameworks */,
+				AA11000000000000000022 /* RealityKit.framework in Frameworks */,
+				AA11000000000000000023 /* SceneKit.framework in Frameworks */,
+				AA11000000000000000024 /* Vision.framework in Frameworks */,
+				AA11000000000000000025 /* Metal.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA30000000000000000001 /* IndoorScanner */ = {
+			isa = PBXGroup;
+			children = (
+				AA30000000000000000002 /* App */,
+				AA30000000000000000003 /* Models */,
+				AA30000000000000000004 /* Scanning */,
+				AA30000000000000000005 /* Calibration */,
+				AA30000000000000000006 /* Stitching */,
+				AA30000000000000000007 /* Rendering */,
+				AA30000000000000000008 /* Processing */,
+				AA30000000000000000009 /* Export */,
+				AA3000000000000000000A /* Storage */,
+				AA3000000000000000000B /* UI */,
+				AA10000000000000000014 /* Assets.xcassets */,
+				AA10000000000000000015 /* Info.plist */,
+			);
+			path = IndoorScanner;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000002 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000001 /* IndoorScannerApp.swift */,
+				AA10000000000000000002 /* AppState.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000003 /* ScanRoom.swift */,
+				AA10000000000000000004 /* WaypointGraph.swift */,
+				AA10000000000000000030 /* SavedScanRecord.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000004 /* Scanning */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000005 /* RoomScanSession.swift */,
+				AA10000000000000000006 /* ARMeshSupplementor.swift */,
+			);
+			path = Scanning;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000005 /* Calibration */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000007 /* QROriginCalibrator.swift */,
+			);
+			path = Calibration;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000006 /* Stitching */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000008 /* MultiRoomStitcher.swift */,
+			);
+			path = Stitching;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000007 /* Rendering */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000009 /* StructuredModelRenderer.swift */,
+			);
+			path = Rendering;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000008 /* Processing */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000A /* MeshPostProcessor.swift */,
+				AA1000000000000000000B /* WaypointGenerator.swift */,
+			);
+			path = Processing;
+			sourceTree = "<group>";
+		};
+		AA30000000000000000009 /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000C /* OBJExporter.swift */,
+				AA1000000000000000000D /* ExportValidator.swift */,
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
+		AA3000000000000000000A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000E /* DiskStreamManager.swift */,
+				AA10000000000000000031 /* ScanLibraryManager.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		AA3000000000000000000B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AA1000000000000000000F /* ContentView.swift */,
+				AA10000000000000000010 /* QRScanView.swift */,
+				AA10000000000000000011 /* ScanningView.swift */,
+				AA10000000000000000012 /* ModelPreviewView.swift */,
+				AA10000000000000000013 /* ExportView.swift */,
+				AA10000000000000000032 /* ScanLibraryView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		AA3000000000000000000C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000016 /* IndoorScanner.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA3000000000000000000D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA10000000000000000020 /* RoomPlan.framework */,
+				AA10000000000000000021 /* ARKit.framework */,
+				AA10000000000000000022 /* RealityKit.framework */,
+				AA10000000000000000023 /* SceneKit.framework */,
+				AA10000000000000000024 /* Vision.framework */,
+				AA10000000000000000025 /* Metal.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA3000000000000000000E = {
+			isa = PBXGroup;
+			children = (
+				AA30000000000000000001 /* IndoorScanner */,
+				AA3000000000000000000C /* Products */,
+				AA3000000000000000000D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA40000000000000000001 /* IndoorScanner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA50000000000000000002 /* Build configuration list for PBXNativeTarget "IndoorScanner" */;
+			buildPhases = (
+				AA20000000000000000001 /* Frameworks */,
+				AA20000000000000000002 /* Sources */,
+				AA20000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IndoorScanner;
+			productName = IndoorScanner;
+			productReference = AA10000000000000000016 /* IndoorScanner.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA40000000000000000000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					AA40000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = AA50000000000000000001 /* Build configuration list for PBXProject "IndoorScanner" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA3000000000000000000E;
+			productRefGroup = AA3000000000000000000C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA40000000000000000001 /* IndoorScanner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA20000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA11000000000000000014 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA20000000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA11000000000000000001 /* IndoorScannerApp.swift in Sources */,
+				AA11000000000000000002 /* AppState.swift in Sources */,
+				AA11000000000000000003 /* ScanRoom.swift in Sources */,
+				AA11000000000000000004 /* WaypointGraph.swift in Sources */,
+				AA11000000000000000005 /* RoomScanSession.swift in Sources */,
+				AA11000000000000000006 /* ARMeshSupplementor.swift in Sources */,
+				AA11000000000000000007 /* QROriginCalibrator.swift in Sources */,
+				AA11000000000000000008 /* MultiRoomStitcher.swift in Sources */,
+				AA11000000000000000009 /* StructuredModelRenderer.swift in Sources */,
+				AA1100000000000000000A /* MeshPostProcessor.swift in Sources */,
+				AA1100000000000000000B /* WaypointGenerator.swift in Sources */,
+				AA1100000000000000000C /* OBJExporter.swift in Sources */,
+				AA1100000000000000000D /* ExportValidator.swift in Sources */,
+				AA1100000000000000000E /* DiskStreamManager.swift in Sources */,
+				AA1100000000000000000F /* ContentView.swift in Sources */,
+				AA11000000000000000010 /* QRScanView.swift in Sources */,
+				AA11000000000000000011 /* ScanningView.swift in Sources */,
+				AA11000000000000000012 /* ModelPreviewView.swift in Sources */,
+				AA11000000000000000013 /* ExportView.swift in Sources */,
+				AA11000000000000000030 /* SavedScanRecord.swift in Sources */,
+				AA11000000000000000031 /* ScanLibraryManager.swift in Sources */,
+				AA11000000000000000032 /* ScanLibraryView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA50000000000000000010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA50000000000000000011 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_CYCLE = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA50000000000000000012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = V7Z5V4667K;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = IndoorScanner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.indoorscanner.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA50000000000000000013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = V7Z5V4667K;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = IndoorScanner/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.indoorscanner.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA50000000000000000001 /* Build configuration list for PBXProject "IndoorScanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA50000000000000000010 /* Debug */,
+				AA50000000000000000011 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA50000000000000000002 /* Build configuration list for PBXNativeTarget "IndoorScanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA50000000000000000012 /* Debug */,
+				AA50000000000000000013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA40000000000000000000 /* Project object */;
+}
