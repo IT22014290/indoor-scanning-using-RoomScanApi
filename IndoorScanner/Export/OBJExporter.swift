@@ -10,6 +10,8 @@ struct OBJExporter {
     struct ExportInput {
         var locationUUID: String
         var qrSizeCm: Float
+        var qrOriginLockedAt: Date?
+        var unityCoordinateReady: Bool
         var rooms: [MultiRoomStitcher.RoomEntry]
         var mergedGeometry: MultiRoomStitcher.MergedGeometry
         var waypointGraph: WaypointGraph
@@ -168,6 +170,15 @@ struct OBJExporter {
         var qrSizeCm: Float
         var scanDate: String
         var coordinateSystem: String
+        var units: String
+        var scaleToMeters: Float
+        var qrOriginPosition: [String: Float]
+        var qrOriginRotation: [String: Float]   // quaternion (x,y,z,w)
+        var qrForwardVector: [String: Float]    // Unity-facing forward (+Z)
+        var qrForwardVectorARKit: [String: Float]
+        var handedness: String
+        var unityCoordinateReady: Bool
+        var originLockedAt: String?
         var origin: [String: Float]
         var bounds: BoundsJSON
         var rooms: [RoomJSON]
@@ -203,7 +214,16 @@ struct OBJExporter {
             qrPayload: input.locationUUID,
             qrSizeCm: input.qrSizeCm,
             scanDate: formatter.string(from: Date()),
-            coordinateSystem: "Y-up, +Z forward, 1unit=1m",
+            coordinateSystem: "QR-relative, Y-up, +Z forward (Unity/AR Foundation)",
+            units: "meters",
+            scaleToMeters: 1.0,
+            qrOriginPosition: qrOriginPosition(from: input),
+            qrOriginRotation: qrOriginRotationQuat(from: input),
+            qrForwardVector: qrForwardVector(from: input),
+            qrForwardVectorARKit: qrForwardVectorARKit(from: input),
+            handedness: "left-handed (Unity). Source captured in right-handed ARKit.",
+            unityCoordinateReady: input.unityCoordinateReady,
+            originLockedAt: input.qrOriginLockedAt.map { formatter.string(from: $0) },
             origin: ["x": 0, "y": 0, "z": 0],
             bounds: .init(minX: bounds.minX, maxX: bounds.maxX,
                           minY: bounds.minY, maxY: bounds.maxY,
@@ -215,6 +235,27 @@ struct OBJExporter {
             scanEngine: "RoomPlan+ARKit",
             triangleCount: triCount
         )
+    }
+
+    private static func qrOriginPosition(from input: ExportInput) -> [String: Float] {
+        // For export, QR is the origin of the aligned coordinate system.
+        ["x": 0, "y": 0, "z": 0]
+    }
+
+    private static func qrOriginRotationQuat(from input: ExportInput) -> [String: Float] {
+        // Since we align everything into QR space (origin inverse applied),
+        // the QR rotation becomes identity in exported coordinates.
+        ["x": 0, "y": 0, "z": 0, "w": 1]
+    }
+
+    private static func qrForwardVector(from input: ExportInput) -> [String: Float] {
+        // Unity-facing convention (left-handed): +Z forward.
+        ["x": 0, "y": 0, "z": 1]
+    }
+
+    private static func qrForwardVectorARKit(from input: ExportInput) -> [String: Float] {
+        // ARKit/RoomPlan convention (right-handed): -Z forward.
+        ["x": 0, "y": 0, "z": -1]
     }
 
     private static func deduplicateWalls(

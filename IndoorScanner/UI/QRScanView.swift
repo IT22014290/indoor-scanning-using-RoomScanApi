@@ -58,6 +58,9 @@ struct QRScanView: View {
             guard calibrated,
                   let payload = calibrator.detectedPayload else { return }
             appState.qrPayload = payload
+            appState.qrWorldTransform = calibrator.qrWorldTransform
+            appState.qrForwardVector = calibrator.qrForwardVectorWorld
+            appState.qrOriginLockedAt = Date()
             let currentName = appState.locationName.trimmingCharacters(in: .whitespacesAndNewlines)
             if currentName.isEmpty || currentName == "Unknown Location" || currentName.hasPrefix("Location ") {
                 appState.locationName = "Location \(payload.prefix(8))…"

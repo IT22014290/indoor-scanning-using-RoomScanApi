@@ -17,6 +17,14 @@ final class QROriginCalibrator: NSObject, ObservableObject {
     @Published var isCalibrated = false
     @Published var detectedPayload: String?
     @Published var qrWorldTransform: simd_float4x4 = matrix_identity_float4x4
+    
+    /// Forward direction in world space for Unity export (RoomPlan/ARKit convention: forward is -Z).
+    var qrForwardVectorWorld: simd_float3 {
+        let z = simd_float3(qrWorldTransform.columns.2.x,
+                            qrWorldTransform.columns.2.y,
+                            qrWorldTransform.columns.2.z)
+        return -simd_normalize(z)
+    }
 
     weak var delegate: QROriginCalibratorDelegate?
     var qrPhysicalSizeCm: Float = 20.0

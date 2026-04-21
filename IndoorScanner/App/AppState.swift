@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 import RoomPlan
+import simd
 
 enum AppPhase: Equatable {
     case idle
@@ -17,6 +18,10 @@ class AppState: ObservableObject {
     @Published var phase: AppPhase = .idle
     @Published var qrPayload: String?
     @Published var qrSizeCm: Float = 20.0
+    // QR-based global origin in ARKit/RoomPlan world space
+    @Published var qrWorldTransform: simd_float4x4 = matrix_identity_float4x4
+    @Published var qrForwardVector: simd_float3 = simd_float3(0, 0, -1)
+    @Published var qrOriginLockedAt: Date?
     @Published var locationName: String = "Unknown Location"
     @Published var scanProgress: Double = 0.0
     @Published var processingProgress: Double = 0.0
@@ -68,6 +73,9 @@ class AppState: ObservableObject {
         savedRecord = nil
         saveError = nil
         previewUsdzURL = nil
+        qrWorldTransform = matrix_identity_float4x4
+        qrForwardVector = simd_float3(0, 0, -1)
+        qrOriginLockedAt = nil
         multiRoomStitcher.reset()
     }
 }

@@ -22,7 +22,11 @@ struct ScanningView: View {
 
     var body: some View {
         ZStack {
-            RoomPlanCaptureViewRepresentable(scanSession: scanSession, meshSupplementor: meshSupplementor)
+            RoomPlanCaptureViewRepresentable(
+                scanSession: scanSession,
+                meshSupplementor: meshSupplementor,
+                qrWorldTransform: appState.qrWorldTransform
+            )
                 .ignoresSafeArea()
 
             VStack {
@@ -275,16 +279,17 @@ struct ScanningView: View {
     }
 
     private func addRoomToState(_ room: CapturedRoom, label: String) {
+        let qrInverse = simd_inverse(appState.qrWorldTransform)
         let scannedRoom = ScannedRoom(
             label: label,
             floorAreaM2: room.floorAreaM2,
             objectCount: room.objects.count,
-            qrRelativeTransform: matrix_identity_float4x4
+            qrRelativeTransform: qrInverse
         )
         appState.addCompletedRoom(scannedRoom)
         appState.multiRoomStitcher.addRoom(room,
                                             label: label,
-                                            qrRelativeTransform: matrix_identity_float4x4)
+                                            qrRelativeTransform: qrInverse)
     }
 
     private func runExport() {
@@ -361,6 +366,8 @@ struct ScanningView: View {
         let input = OBJExporter.ExportInput(
             locationUUID: appState.qrPayload ?? "unknown",
             qrSizeCm: appState.qrSizeCm,
+            qrOriginLockedAt: appState.qrOriginLockedAt,
+            unityCoordinateReady: appState.qrPayload != nil,
             rooms: stitcher.rooms,
             mergedGeometry: mergedGeo,
             waypointGraph: waypointGraph,
@@ -426,14 +433,18 @@ struct ScanningView: View {
 struct RoomPlanCaptureViewRepresentable: UIViewRepresentable {
     @ObservedObject var scanSession: RoomScanSession
     let meshSupplementor: ARMeshSupplementor
+    let qrWorldTransform: simd_float4x4
 
     func makeUIView(context: Context) -> RoomCaptureView {
         let captureView = RoomCaptureView(frame: .zero)
         scanSession.attach(to: captureView)
         // Attach LiDAR mesh capture to RoomPlan's underlying ARSession when available.
         meshSupplementor.attach(to: captureView.captureSession.arSession)
+        meshSupplementor.qrWorldTransform = qrWorldTransform
         return captureView
     }
 
-    func updateUIView(_ uiView: RoomCaptureView, context: Context) {}
+    func updateUIView(_ uiView: RoomCaptureView, context: Context) {
+        meshSupplementor.qrWorldTransform = qrWorldTransform
+    }
 }
