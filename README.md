@@ -141,11 +141,26 @@ Users can:
 
 ## Screenshots
 
-<img src="Screenshots/IMG_8325.PNG" alt="Saved scans list" width="300" />
-<img src="Screenshots/IMG_8336.PNG" alt="Export details and actions" width="300" />
-<img src="Screenshots/IMG_8335.PNG" alt="Home screen in Sinhala" width="300" />
-<img src="Screenshots/IMG_8330.PNG" alt="Home screen in English" width="300" />
-<img src="Screenshots/IMG_8332.PNG" alt="3D preview screen" width="300" />
-<img src="Screenshots/IMG_8334.PNG" alt="In-scan RoomPlan capture" width="300" />
-<img src="Screenshots/IMG_8327.PNG" alt="QR scanning screen" width="300" />
-<img src="Screenshots/IMG_8333.PNG" alt="App icon on home screen" width="300" />
+<img src="Screenshots/IMG_8325.PNG" width="300" />
+<p><small>Indoor Scanner app icon on the iPhone home screen.</small></p>
+
+<img src="Screenshots/IMG_8336.PNG" width="300" />
+<p><small>Home screen in English with QR and quick scan options.</small></p>
+
+<img src="Screenshots/IMG_8335.PNG" width="300" />
+<p><small>Home screen in Sinhala with project input and scan actions.</small></p>
+
+<img src="Screenshots/IMG_8330.PNG" width="300" />
+<p><small>QR scanning screen used to lock location origin before scanning.</small></p>
+
+<img src="Screenshots/IMG_8332.PNG" width="300" />
+<p><small>Live RoomPlan capture view during room scanning.</small></p>
+
+<img src="Screenshots/IMG_8334.PNG" width="300" />
+<p><small>3D preview screen for reviewing scanned geometry.</small></p>
+
+<img src="Screenshots/IMG_8327.PNG" width="300" />
+<p><small>Saved scans list with recorded projects and quick stats.</small></p>
+
+<img src="Screenshots/IMG_8333.PNG" width="300" />
+<p><small>Export bundle details with share, save, and delete actions.</small></p>
