@@ -27,6 +27,12 @@ final class ARMeshSupplementor: NSObject, ObservableObject {
 
     // MARK: - Geometry extraction
 
+    struct DetectedObstacle {
+        var transform: simd_float4x4
+        var dimensions: simd_float3
+        var category: String
+    }
+
     /// Returns vertices from all mesh anchors transformed into QR-relative space.
     func extractObstacleFaces(
         excludingBounds roomBounds: BoundingBox3D
@@ -68,6 +74,51 @@ final class ARMeshSupplementor: NSObject, ObservableObject {
                 results.append((vertices: verts, indices: filteredIndices))
             }
         }
+        return results
+    }
+
+    /// Heuristic detection of cylindrical/unclassified obstacles from LiDAR mesh chunks.
+    func detectSupplementalObstacles(
+        excludingBounds roomBounds: BoundingBox3D
+    ) -> [DetectedObstacle] {
+        let chunks = extractObstacleFaces(excludingBounds: roomBounds)
+        var results: [DetectedObstacle] = []
+
+        for chunk in chunks {
+            guard !chunk.vertices.isEmpty else { continue }
+            let xs = chunk.vertices.map(\.x)
+            let ys = chunk.vertices.map(\.y)
+            let zs = chunk.vertices.map(\.z)
+            guard let minX = xs.min(), let maxX = xs.max(),
+                  let minY = ys.min(), let maxY = ys.max(),
+                  let minZ = zs.min(), let maxZ = zs.max() else { continue }
+
+            let width = maxX - minX
+            let depth = maxZ - minZ
+            let height = maxY - minY
+            if height < 0.25 || width < 0.10 || depth < 0.10 { continue }
+
+            let footprintRatio = max(width, depth) / max(min(width, depth), 0.001)
+            let isCylinderLike =
+                footprintRatio <= 1.25 &&
+                height >= 0.35 && height <= 3.00 &&
+                width >= 0.15 && width <= 1.20 &&
+                depth >= 0.15 && depth <= 1.20
+
+            let center = simd_float3((minX + maxX) * 0.5, (minY + maxY) * 0.5, (minZ + maxZ) * 0.5)
+            var t = matrix_identity_float4x4
+            t.columns.3 = simd_float4(center.x, center.y, center.z, 1)
+            let dims = simd_float3(width, height, depth)
+
+            results.append(
+                DetectedObstacle(
+                    transform: t,
+                    dimensions: dims,
+                    category: isCylinderLike ? "obstacle.cylinder" : "obstacle.unknown"
+                )
+            )
+        }
+
         return results
     }
 }

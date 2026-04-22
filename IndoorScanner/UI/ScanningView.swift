@@ -5,6 +5,7 @@ import ARKit
 /// Main scanning screen: RoomPlan capture view + HUD overlay.
 struct ScanningView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
     @StateObject private var scanSession = RoomScanSession()
     @StateObject private var meshSupplementor = ARMeshSupplementor()
     @State private var showAddRoomConfirm = false
@@ -77,16 +78,16 @@ struct ScanningView: View {
                 commitCurrentRoomAndExport()
             }
         }
-        .alert("Save Room", isPresented: $showAddRoomConfirm) {
-            TextField("Room label (e.g. Main Hall)", text: $roomLabel)
-            Button("Save & Add Next") { triggerAddNextRoom() }
-            Button("Cancel", role: .cancel) {}
+        .alert(i18n.t("add_next_room"), isPresented: $showAddRoomConfirm) {
+            TextField(i18n.t("project_name"), text: $roomLabel)
+            Button(i18n.t("add_next_room")) { triggerAddNextRoom() }
+            Button(i18n.t("cancel"), role: .cancel) {}
         } message: {
-            Text("Name this area before starting the next room.")
+            Text(i18n.t("project_name"))
         }
-        .alert("Scan Incomplete", isPresented: $showQualityAlert) {
-            Button("Continue Scanning") { scanSession.start() }
-            Button("Cancel", role: .cancel) {}
+        .alert(i18n.t("scan_incomplete"), isPresented: $showQualityAlert) {
+            Button(i18n.t("continue_scanning")) { scanSession.start() }
+            Button(i18n.t("cancel"), role: .cancel) {}
         } message: {
             Text("The captured model is too sparse for accurate preview/export. Scan walls and floor again from multiple angles, then process.")
         }
@@ -102,10 +103,10 @@ struct ScanningView: View {
                     .progressViewStyle(.circular)
                     .scaleEffect(1.4)
                     .tint(.white)
-                Text("Processing scan…")
+                Text(i18n.t("processing_scan"))
                     .foregroundColor(.white)
                     .font(.subheadline)
-                Text("Building clean 3D model")
+                Text(i18n.t("build_clean_model"))
                     .foregroundColor(.secondary)
                     .font(.caption)
             }
@@ -121,7 +122,7 @@ struct ScanningView: View {
                     .font(.headline)
                     .foregroundColor(.white)
                     .lineLimit(1)
-                Text("\(appState.roomCount) room(s) captured")
+                Text("\(appState.roomCount) \(i18n.t("rooms_captured"))")
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -156,7 +157,7 @@ struct ScanningView: View {
 
             HStack(spacing: 16) {
                 Button { showAddRoomConfirm = true } label: {
-                    Label("Add Next Room", systemImage: "plus.circle")
+                    Label(i18n.t("add_next_room"), systemImage: "plus.circle")
                         .font(.subheadline)
                         .foregroundColor(.white)
                         .padding(.horizontal, 16)
@@ -169,7 +170,7 @@ struct ScanningView: View {
                 Spacer()
 
                 Button { triggerPreviewScan() } label: {
-                    Text("Preview")
+                    Text(i18n.t("preview"))
                         .font(.headline)
                         .foregroundColor(.white)
                         .padding(.horizontal, 20)
@@ -180,7 +181,7 @@ struct ScanningView: View {
                 .disabled(scanSession.isProcessingRoom)
 
                 Button { triggerExportScan() } label: {
-                    Text("Export")
+                    Text(i18n.t("export"))
                         .font(.headline)
                         .foregroundColor(.black)
                         .padding(.horizontal, 20)
@@ -191,7 +192,7 @@ struct ScanningView: View {
                 .disabled(scanSession.isProcessingRoom)
             }
 
-            Button("Cancel Scan") {
+            Button(i18n.t("cancel_scan")) {
                 scanSession.stop()
                 appState.reset()
             }
@@ -309,7 +310,7 @@ struct ScanningView: View {
 
         // Encode rooms to USDZ using RoomPlan's own encoder — preserves exact visual style
         exportDebug("✅ Step 2: Merging rooms")
-        let mergedGeo = stitcher.buildMergedGeometry()
+        var mergedGeo = stitcher.buildMergedGeometry()
 
         // ARKit mesh supplement (LiDAR) for irregular obstacles
         exportDebug("✅ Step 2b: Extracting ARKit mesh obstacles")
@@ -328,6 +329,20 @@ struct ScanningView: View {
             let m = MeshPostProcessor.ProcessedMesh(vertices: combinedVerts, indices: combinedIdx)
             return MeshPostProcessor.decimate(m, targetTriangles: 150_000, mergeTolerance: 0.01)
         }()
+        let supplementalObstacles = meshSupplementor.detectSupplementalObstacles(excludingBounds: mergedGeo.bounds)
+        if !supplementalObstacles.isEmpty {
+            exportDebug("Detected supplemental obstacles: \(supplementalObstacles.count)")
+            for obs in supplementalObstacles {
+                mergedGeo.objects.append(
+                    MultiRoomStitcher.ObjectPrimitive(
+                        transform: obs.transform,
+                        dimensions: obs.dimensions,
+                        category: obs.category,
+                        roomID: UUID()
+                    )
+                )
+            }
+        }
 
         exportDebug("✅ Step 3: Generating waypoints")
         let waypointGraph = WaypointGenerator.generate(

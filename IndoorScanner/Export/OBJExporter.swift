@@ -185,6 +185,7 @@ struct OBJExporter {
         var totalFloorAreaM2: Double
         var totalObjectCount: Int
         var aisleCount: Int
+        var cylinderCount: Int
         var scanEngine: String
         var triangleCount: Int
 
@@ -230,8 +231,9 @@ struct OBJExporter {
                           minZ: bounds.minZ, maxZ: bounds.maxZ),
             rooms: roomsJSON,
             totalFloorAreaM2: input.rooms.reduce(0) { $0 + $1.capturedRoom.floorAreaM2 },
-            totalObjectCount: input.rooms.reduce(0) { $0 + $1.capturedRoom.objects.count },
+            totalObjectCount: input.mergedGeometry.objects.count,
             aisleCount: input.mergedGeometry.aisles.count,
+            cylinderCount: input.mergedGeometry.objects.filter { $0.category == "obstacle.cylinder" }.count,
             scanEngine: "RoomPlan+ARKit",
             triangleCount: triCount
         )

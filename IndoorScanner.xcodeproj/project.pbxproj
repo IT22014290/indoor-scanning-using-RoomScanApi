@@ -30,6 +30,7 @@
 		AA11000000000000000030 /* SavedScanRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000030 /* SavedScanRecord.swift */; };
 		AA11000000000000000031 /* ScanLibraryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000031 /* ScanLibraryManager.swift */; };
 		AA11000000000000000032 /* ScanLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000032 /* ScanLibraryView.swift */; };
+		AA11000000000000000033 /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA10000000000000000033 /* LocalizationManager.swift */; };
 		AA11000000000000000020 /* RoomPlan.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000020 /* RoomPlan.framework */; };
 		AA11000000000000000021 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000021 /* ARKit.framework */; };
 		AA11000000000000000022 /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA10000000000000000022 /* RealityKit.framework */; };
@@ -63,6 +64,7 @@
 		AA10000000000000000030 /* SavedScanRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedScanRecord.swift; sourceTree = "<group>"; };
 		AA10000000000000000031 /* ScanLibraryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLibraryManager.swift; sourceTree = "<group>"; };
 		AA10000000000000000032 /* ScanLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanLibraryView.swift; sourceTree = "<group>"; };
+		AA10000000000000000033 /* LocalizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		AA10000000000000000016 /* IndoorScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA10000000000000000020 /* RoomPlan.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RoomPlan.framework; path = System/Library/Frameworks/RoomPlan.framework; sourceTree = SDKROOT; };
 		AA10000000000000000021 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
@@ -113,6 +115,7 @@
 			children = (
 				AA10000000000000000001 /* IndoorScannerApp.swift */,
 				AA10000000000000000002 /* AppState.swift */,
+				AA10000000000000000033 /* LocalizationManager.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				AA11000000000000000030 /* SavedScanRecord.swift in Sources */,
 				AA11000000000000000031 /* ScanLibraryManager.swift in Sources */,
 				AA11000000000000000032 /* ScanLibraryView.swift in Sources */,
+				AA11000000000000000033 /* LocalizationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

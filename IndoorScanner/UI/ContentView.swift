@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
+    @State private var showLanguageSheet = false
 
     var body: some View {
         ZStack {
@@ -25,6 +27,43 @@ struct ContentView: View {
             }
         }
         .animation(.easeInOut(duration: 0.3), value: appState.phase)
+        .overlay(alignment: .topLeading) {
+            Button {
+                showLanguageSheet = true
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "globe")
+                    Text(i18n.language.displayName)
+                        .font(.caption)
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(.ultraThinMaterial)
+                .clipShape(Capsule())
+            }
+            .padding(.top, 56)
+            .padding(.leading, 16)
+        }
+        .sheet(isPresented: $showLanguageSheet) {
+            NavigationStack {
+                List(AppLanguage.allCases) { lang in
+                    Button {
+                        i18n.language = lang
+                    } label: {
+                        HStack {
+                            Text(lang.displayName)
+                            Spacer()
+                            if i18n.language == lang {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+                .navigationTitle(i18n.t("language"))
+            }
+            .presentationDetents([.medium])
+        }
     }
 }
 
@@ -32,6 +71,7 @@ struct ContentView: View {
 
 struct IdleView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
     @State private var showLibrary = false
     @State private var projectName = ""
 
@@ -45,7 +85,7 @@ struct IdleView: View {
                 } label: {
                     HStack(spacing: 6) {
                         Image(systemName: "archivebox")
-                        Text("My Scans")
+                        Text(i18n.t("my_scans"))
                             .fontWeight(.medium)
                         if appState.scanLibrary.records.count > 0 {
                             Text("\(appState.scanLibrary.records.count)")
@@ -75,10 +115,10 @@ struct IdleView: View {
                 .foregroundColor(.white)
 
             VStack(spacing: 8) {
-                Text("Indoor Scanner")
+                Text(i18n.t("indoor_scanner"))
                     .font(.largeTitle.bold())
                     .foregroundColor(.white)
-                Text("Scan rooms to generate NavMesh-ready 3D models")
+                Text(i18n.t("tagline"))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
@@ -89,10 +129,10 @@ struct IdleView: View {
 
             VStack(spacing: 16) {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Project Name")
+                    Text(i18n.t("project_name"))
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    TextField("Enter project name", text: $projectName)
+                    TextField(i18n.t("enter_project_name"), text: $projectName)
                         .textInputAutocapitalization(.words)
                         .disableAutocorrection(true)
                         .foregroundColor(.white)
@@ -106,7 +146,7 @@ struct IdleView: View {
                     appState.locationName = resolvedProjectName
                     appState.phase = .qrScanning
                 } label: {
-                    Label("Scan Location QR Code", systemImage: "qrcode.viewfinder")
+                    Label(i18n.t("scan_location_qr"), systemImage: "qrcode.viewfinder")
                         .font(.headline)
                         .foregroundColor(.black)
                         .frame(maxWidth: .infinity)
@@ -121,7 +161,7 @@ struct IdleView: View {
                     appState.locationName = resolvedProjectName
                     appState.phase = .scanning
                 } label: {
-                    Label("Quick Scan (no QR)", systemImage: "camera.viewfinder")
+                    Label(i18n.t("quick_scan"), systemImage: "camera.viewfinder")
                         .font(.subheadline)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
@@ -131,7 +171,7 @@ struct IdleView: View {
                 }
 
                 HStack {
-                    Text("QR physical size:")
+                    Text(i18n.t("qr_physical_size"))
                         .foregroundColor(.secondary)
                         .font(.footnote)
                     Spacer()
@@ -160,7 +200,7 @@ struct IdleView: View {
     
     private var resolvedProjectName: String {
         let trimmed = projectName.trimmingCharacters(in: .whitespacesAndNewlines)
-        return trimmed.isEmpty ? "Untitled Project" : trimmed
+        return trimmed.isEmpty ? i18n.t("untitled_project") : trimmed
     }
 }
 
@@ -168,6 +208,7 @@ struct IdleView: View {
 
 struct ProcessingView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
 
     var body: some View {
         VStack(spacing: 24) {
@@ -191,12 +232,12 @@ struct ProcessingView: View {
 
     private var processingLabel: String {
         let p = appState.processingProgress
-        if p < 0.2  { return "Merging rooms…" }
-        if p < 0.4  { return "Flattening floor…" }
-        if p < 0.6  { return "Generating obstacles…" }
-        if p < 0.75 { return "Computing waypoints…" }
-        if p < 0.9  { return "Saving to library…" }
-        return "Rendering preview…"
+        if p < 0.2  { return i18n.t("merge_rooms") }
+        if p < 0.4  { return i18n.t("flatten_floor") }
+        if p < 0.6  { return i18n.t("gen_obstacles") }
+        if p < 0.75 { return i18n.t("compute_waypoints") }
+        if p < 0.9  { return i18n.t("saving_library") }
+        return i18n.t("render_preview")
     }
 }
 
@@ -204,6 +245,7 @@ struct ProcessingView: View {
 
 struct ErrorView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
     let message: String
 
     var body: some View {
@@ -211,7 +253,7 @@ struct ErrorView: View {
             Image(systemName: "exclamationmark.triangle")
                 .font(.system(size: 60))
                 .foregroundColor(.orange)
-            Text("Something went wrong")
+            Text(i18n.t("something_wrong"))
                 .font(.title2.bold())
                 .foregroundColor(.white)
             Text(message)
@@ -219,7 +261,7 @@ struct ErrorView: View {
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            Button("Start Over") { appState.reset() }
+            Button(i18n.t("start_over")) { appState.reset() }
                 .buttonStyle(.borderedProminent)
                 .tint(.white)
         }

@@ -6,6 +6,7 @@ import RealityKit
 /// Once detected, transitions to scanning phase.
 struct QRScanView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
     @StateObject private var calibrator = QROriginCalibrator()
 
     var body: some View {
@@ -14,7 +15,7 @@ struct QRScanView: View {
                 .ignoresSafeArea()
 
             VStack {
-                Text("Scan Location QR Code")
+                Text(i18n.t("scan_location_qr"))
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding(.horizontal, 20)
@@ -49,7 +50,7 @@ struct QRScanView: View {
                     .clipShape(Capsule())
                 }
 
-                Button("Cancel") { appState.phase = .idle }
+                Button(i18n.t("cancel")) { appState.phase = .idle }
                     .foregroundColor(.white)
                     .padding(.bottom, 40)
             }

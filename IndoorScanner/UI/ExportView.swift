@@ -3,6 +3,7 @@ import SwiftUI
 /// Export management sheet: shows bundle info, share options, upload actions.
 struct ExportView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
     @Environment(\.dismiss) private var dismiss
     @State private var showShareSheet = false
     @State private var shareItems: [Any] = []
@@ -18,7 +19,7 @@ struct ExportView: View {
                                 .foregroundColor(.green)
                                 .font(.title2)
                             VStack(alignment: .leading, spacing: 2) {
-                                Text("Saved to My Scans")
+                                Text(i18n.t("my_scans"))
                                     .font(.headline)
                                 Text("Access it anytime from the home screen")
                                     .font(.caption)
@@ -36,7 +37,7 @@ struct ExportView: View {
                     }
                 }
 
-                Section("Export Summary") {
+                Section(i18n.t("export_summary")) {
                     LabeledContent("Location", value: appState.locationName)
                     LabeledContent("UUID", value: String((appState.qrPayload ?? "—").prefix(24)))
                     LabeledContent("Rooms scanned", value: "\(appState.roomCount)")
@@ -46,7 +47,7 @@ struct ExportView: View {
                     LabeledContent("Triangle count", value: appState.triangleCount.formatted())
                 }
 
-                Section("Bundle Contents") {
+                Section(i18n.t("bundle_contents")) {
                     fileRow(name: "floor.obj",       desc: "Walkable floor surface")
                     fileRow(name: "obstacles.obj",   desc: "Walls + furniture boxes")
                     fileRow(name: "combined.obj",    desc: "Floor + obstacles merged")
@@ -57,7 +58,7 @@ struct ExportView: View {
                     fileRow(name: "thumbnail.png",   desc: "Top-down preview image")
                 }
 
-                Section("Export Formats") {
+                Section(i18n.t("export_formats")) {
                     if let objURL = appState.exportOBJURL {
                         Button {
                             shareItems = [objURL]
@@ -98,7 +99,7 @@ struct ExportView: View {
                     }
                 }
 
-                Section("Transfer") {
+                Section(i18n.t("transfer")) {
                     // Prefer the library bundle URL so it persists after reset
                     let shareURL = appState.savedRecord.map {
                         appState.scanLibrary.bundleURL(for: $0)
@@ -109,11 +110,11 @@ struct ExportView: View {
                             shareItems = [url]
                             showShareSheet = true
                         } label: {
-                            Label("Share / AirDrop", systemImage: "square.and.arrow.up")
+                            Label(i18n.t("share_airdrop"), systemImage: "square.and.arrow.up")
                         }
 
                         Button { saveToFiles(url: url) } label: {
-                            Label("Save to Files", systemImage: "folder.badge.plus")
+                            Label(i18n.t("save_to_files"), systemImage: "folder.badge.plus")
                         }
                     } else {
                         Label("Export bundle not ready", systemImage: "exclamationmark.circle")
@@ -121,18 +122,18 @@ struct ExportView: View {
                     }
                 }
             }
-            .navigationTitle("Export Bundle")
+            .navigationTitle(i18n.t("export_bundle"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
+                    Button(i18n.t("done")) {
                         dismiss()
                         appState.phase = .idle
                         appState.reset()
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Back to Preview") { dismiss() }
+                    Button(i18n.t("back")) { dismiss() }
                 }
             }
         }

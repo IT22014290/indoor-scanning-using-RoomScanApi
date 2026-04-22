@@ -4,6 +4,7 @@ import QuickLook
 /// Browse, share, and delete all saved scans.
 struct ScanLibraryView: View {
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var i18n: LocalizationManager
     @ObservedObject var library: ScanLibraryManager
     @State private var selectedRecord: SavedScanRecord?
     @State private var showShareSheet = false
@@ -33,11 +34,11 @@ struct ScanLibraryView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("Saved Scans")
+            .navigationTitle(i18n.t("saved_scans"))
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("Close") { dismiss() }
+                    Button(i18n.t("close")) { dismiss() }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     EditButton()
@@ -55,9 +56,9 @@ struct ScanLibraryView: View {
             Image(systemName: "building.2.crop.circle")
                 .font(.system(size: 64))
                 .foregroundColor(.secondary)
-            Text("No Saved Scans")
+            Text(i18n.t("no_saved_scans"))
                 .font(.title2.bold())
-            Text("Complete a room scan to save your first 3D model here.")
+            Text(i18n.t("tagline"))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -120,6 +121,7 @@ struct ScanRowView: View {
 struct ScanDetailView: View {
     let record: SavedScanRecord
     let library: ScanLibraryManager
+    @EnvironmentObject var i18n: LocalizationManager
     @State private var showShareSheet = false
     @State private var showModelPreview = false
     @Environment(\.dismiss) private var dismiss
@@ -162,7 +164,7 @@ struct ScanDetailView: View {
                         Button {
                             showModelPreview = true
                         } label: {
-                            Label("Preview 3D Model", systemImage: "view.3d")
+                            Label(i18n.t("preview_3d_model"), systemImage: "view.3d")
                                 .frame(maxWidth: .infinity)
                         }
                     }
@@ -180,7 +182,7 @@ struct ScanDetailView: View {
                     Button {
                         saveToFiles()
                     } label: {
-                        Label("Save to Files", systemImage: "folder.badge.plus")
+                        Label(i18n.t("save_to_files"), systemImage: "folder.badge.plus")
                             .frame(maxWidth: .infinity)
                     }
 
@@ -197,7 +199,7 @@ struct ScanDetailView: View {
             .navigationTitle(record.locationName)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) { Button("Done") { dismiss() } }
+                ToolbarItem(placement: .topBarTrailing) { Button(i18n.t("done")) { dismiss() } }
             }
             .sheet(isPresented: $showModelPreview) {
                 if let url = library.usdzURL(for: record) {
@@ -232,16 +234,17 @@ struct ScanDetailView: View {
 struct ModelPreviewSheet: View {
     let url: URL
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var i18n: LocalizationManager
 
     var body: some View {
         NavigationStack {
             QuickLookPreview(url: url)
                 .ignoresSafeArea()
-                .navigationTitle("3D Preview")
+                .navigationTitle(i18n.t("preview"))
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Back") { dismiss() }
+                        Button(i18n.t("back")) { dismiss() }
                     }
                 }
         }
