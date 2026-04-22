@@ -142,10 +142,10 @@ Users can:
 ## Screenshots
 
 <img src="Screenshots/IMG_8325.PNG" alt="Saved scans list" width="300" />
-<img src="Screenshots/IMG_8327.PNG" alt="Export details and actions" width="300" />
-<img src="Screenshots/IMG_8330.PNG" alt="Home screen in Sinhala" width="300" />
-<img src="Screenshots/IMG_8332.PNG" alt="Home screen in English" width="300" />
-<img src="Screenshots/IMG_8333.PNG" alt="3D preview screen" width="300" />
+<img src="Screenshots/IMG_8336.PNG" alt="Export details and actions" width="300" />
+<img src="Screenshots/IMG_8335.PNG" alt="Home screen in Sinhala" width="300" />
+<img src="Screenshots/IMG_8330.PNG" alt="Home screen in English" width="300" />
+<img src="Screenshots/IMG_8332.PNG" alt="3D preview screen" width="300" />
 <img src="Screenshots/IMG_8334.PNG" alt="In-scan RoomPlan capture" width="300" />
-<img src="Screenshots/IMG_8335.PNG" alt="QR scanning screen" width="300" />
-<img src="Screenshots/IMG_8336.PNG" alt="App icon on home screen" width="300" />
+<img src="Screenshots/IMG_8327.PNG" alt="QR scanning screen" width="300" />
+<img src="Screenshots/IMG_8333.PNG" alt="App icon on home screen" width="300" />
