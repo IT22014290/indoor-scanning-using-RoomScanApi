@@ -68,8 +68,9 @@ struct OBJExporter {
         let geo = input.mergedGeometry
         let dedupWalls = deduplicateWalls(geo.walls)
 
-        // 1. Floor mesh
-        let floorMesh = MeshPostProcessor.unifyFloors(from: geo.floors)
+        // 1. Floor mesh — polygon traced from wall footprint, not a fixed rectangle
+        let floorMesh = MeshPostProcessor.buildFloorFromWalls(
+            walls: dedupWalls, fallbackFloors: geo.floors)
         let floorMeshFinal = MeshPostProcessor.decimate(floorMesh, targetTriangles: 100_000)
         let floorObjURL = tmp.appendingPathComponent("floor.obj")
         try writeOBJ(floorMeshFinal, to: floorObjURL,

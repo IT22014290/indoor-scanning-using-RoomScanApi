@@ -149,6 +149,21 @@ final class MultiRoomStitcher: ObservableObject {
             }
         }
 
+        // Shift all geometry so the floor sits at Y=0.
+        // RoomPlan places Y=0 at the phone's position when scanning starts (roughly waist
+        // height), so floors have a negative Y and walls straddle the origin. We compute
+        // the offset from the lowest floor center and apply it uniformly before snapping.
+        let floorYs = merged.floors.map { $0.transform.columns.3.y }
+        if let lowestFloorY = floorYs.min(), abs(lowestFloorY) > 0.01 {
+            let yShift = -lowestFloorY
+            merged.walls   = merged.walls.map   { var s = $0; s.transform.columns.3.y += yShift; return s }
+            merged.objects = merged.objects.map { var o = $0; o.transform.columns.3.y += yShift; return o }
+            merged.doors   = merged.doors.map   { var s = $0; s.transform.columns.3.y += yShift; return s }
+            merged.windows = merged.windows.map { var s = $0; s.transform.columns.3.y += yShift; return s }
+            merged.bounds.minY += yShift
+            merged.bounds.maxY += yShift
+        }
+
         // Snap all floor transforms to Y=0 (unified floor plane)
         merged.floors = merged.floors.map { floor in
             var f = floor

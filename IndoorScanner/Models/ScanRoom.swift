@@ -96,7 +96,8 @@ extension CapturedRoom {
         if #available(iOS 17.0, *) {
             return floors.reduce(0.0) { total, floor in
                 let d = floor.dimensions
-                return total + Double(d.x * d.z)
+                let sorted = [d.x, d.y, d.z].sorted(by: >)
+                return total + Double(sorted[0] * sorted[1])
             }
         } else {
             // iOS 16 fallback: estimate floor area from wall bounding box
